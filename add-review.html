@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write a Review</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <section class="add-review">
+    <h1 class="heading">Write <span>Your Review</span></h1>
+
+    <form class="review-form" id="submitReview">
+      <label for="name"><b>Name</b></label>
+      <input type="text" id="name" placeholder="Enter your name" required />
+
+      <label><b>Rate Us</b></label>
+      <div class="stars-input">
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+      </div>
+
+      <label for="review"><b>Your Review</b></label>
+      <textarea id="review" placeholder="Write your experience..." required></textarea>
+
+      <button type="submit" class="btn">Submit Review</button>
+      <a href="review.html" class="btn cancel">Back to Reviews</a>
+    </form>
+  </section>
+
+  <script>
+    // stars rating
+    const stars = document.querySelectorAll('.stars-input i');
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        stars.forEach((s, i) => {
+          s.classList.toggle('fa-solid', i <= index);
+          s.classList.toggle('fa-regular', i > index);
+        });
+      });
+    });
+
+    // Submit form
+    document.getElementById('submitReview').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for sharing your review!');
+      window.location.href = "review.html";
+    });
+  </script>
+</body>
+</html>
