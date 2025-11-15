@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- ===== PROFILE HEADER ===== -->
+  <div class="card profile-header reveal">
+
+    <div class="profile-img-wrapper">
+      <img id="profileImage" src="scr/img/pexels-olly-874158.jpg" class="profile-img" alt="Profile Image">
+      <input type="file" id="imageUpload" accept="image/*" hidden>
+      <button class="change-img-btn" id="changeImgBtn">
+        <i class="fa-solid fa-camera"></i>
+      </button>
+    </div>
+
+    <h2 class="username">Hello! Tariq</h2>
+    <p class="role">Hotel Guest</p>
+
+    <div class="button-group">
+      <button id="editBtn" class="btn navy-btn"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+      <button id="saveBtn" class="btn outline-btn" style="display:none;"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>
+  </div>
+
+  <!-- ===== ACCOUNT INFO ===== -->
+  <div class="card section-card reveal">
+    <h3 class="section-title">Account Information</h3>
+
+    <div class="floating-label">
+        <input id="fullName" class="form-control" type="text" value="Tariq" disabled>
+        <label for="fullName">Full Name</label>
+    </div>
+
+    <div class="floating-label">
+        <input id="email" class="form-control" type="email"  value="Tariq2027@gmail.com" disabled>
+        <label for="email">Email</label>
+    </div>
+
+    <div class="floating-label">
+        <input id="phone" class="form-control" type="text"  value="00962 777 777 061" disabled>
+        <label for="phone">Phone Number</label>
+    </div>
+  </div>
+
+  <!-- ===== BOOKING ===== -->
+  <div class="card section-card reveal">
+    <h3 class="section-title">Booking</h3>
+
+    <a href="my-booking.html" class="link-item"><i class="fa-solid fa-calendar-check"></i> My Booking</a>
+    <a href="reviews.html" class="link-item"><i class="fa-solid fa-star"></i> Reviews</a>
+  </div>
+
+  <!-- ===== SUPPORT ===== -->
+  <div class="card section-card reveal">
+    <h3 class="section-title">Support & Help</h3>
+
+    <a href="help.html" class="link-item"><i class="fa-solid fa-circle-info"></i> Help Center</a>
+    <a href="rate-us.html" class="link-item"><i class="fa-solid fa-thumbs-up"></i> Rate Us</a>
+  </div>
+
+  <!-- ===== LOGOUT ===== -->
+  <div class="card section-card reveal">
+    <a href="logout.html" class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </div>
+
+</div>
+
+<script src="profile.js"></script>
+</body>
+</html>
