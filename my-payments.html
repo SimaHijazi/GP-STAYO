@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Payments</title>
+
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+body {
+    background: #F4F4F4;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 25px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #14173F;
+}
+
+.sub-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* PAYMENT CARD */
+.payment-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    margin-bottom: 25px;
+    animation: fadeIn .5s ease;
+    display: flex;
+}
+
+.payment-img {
+    width: 160px;
+    height: 140px;
+    object-fit: cover;
+}
+
+.payment-info-box {
+    padding: 18px;
+    flex: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.payment-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #14173F;
+    margin: 0 0 6px;
+}
+
+.payment-info {
+    font-size: 16px;
+    margin: 4px 0;
+}
+
+/* STATUS */
+.status {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.paid     { background: #D7F8D7; color: #1B7A1B; }
+.pending  { background: #FFF3CD; color: #856404; }
+.failed   { background: #F8D7DA; color: #842029; }
+
+/* DETAILS BUTTON */
+.view-btn {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: #14173F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    width: 350px;
+    border-radius: 14px;
+    text-align: center;
+    animation: pop .3s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+    padding: 9px 20px;
+    background: #14173F;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="page-title">My Payments</h2>
+<p class="sub-text">Track all your payments with detailed receipts</p>
+
+<div id="paymentContainer"></div>
+
+<!-- Popup Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDetails"></p>
+        <button class="close-modal" onclick="closePaymentModal()">Close</button>
+    </div>
+</div>
+
+<script>
+const payments = [
+    {
+        service: "Double Room Booking",
+        date: "15 Dec 2025",
+        amount: "$200",
+        status: "paid",
+        details: "Room 204 • 2 Nights • Breakfast Included",
+        img: "scr/img/double.jpg"
+    },
+    {
+        service: "Restaurant Dinner",
+        date: "18 Dec 2025",
+        amount: "$80",
+        status: "paid",
+        details: "Italian Dinner • Table for 2",
+        img: "scr/img/Res.avif"
+    },
+    {
+        service: "Spa Massage",
+        date: "19 Dec 2025",
+        amount: "$60",
+        status: "pending",
+        details: "60-Minute Relaxation Massage",
+        img: "scr/img/spa.jpg"
+    },
+    {
+        service: "Meeting Room Rental",
+        date: "25 Dec 2025",
+        amount: "$120",
+        status: "failed",
+        details: "Business Hall • 2 Hours",
+        img: "scr/img/meeting.avif"
+    },
+    {
+        service: "Gym Entry",
+        date: "21 Dec 2025",
+        amount: "$25",
+        status: "paid",
+        details: "Daily Pass • Full Access",
+        img: "scr/img/GYM.avif"
+    }
+];
+
+function renderPayments() {
+    const container = document.getElementById("paymentContainer");
+    container.innerHTML = "";
+
+    payments.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "payment-card";
+
+        card.innerHTML = `
+            <img src="${p.img}" class="payment-img">
+            
+            <div class="payment-info-box">
+                <h3 class="payment-title">${p.service}</h3>
+
+                <p class="payment-info"><strong>Date:</strong> ${p.date}</p>
+                <p class="payment-info"><strong>Amount:</strong> ${p.amount}</p>
+
+                <span class="status ${p.status}">
+                    ${p.status.charAt(0).toUpperCase() + p.status.slice(1)}
+                </span>
+
+                <br>
+                <button class="view-btn">View Details</button>
+            </div>
+        `;
+
+        card.querySelector(".view-btn").onclick = () => {
+            openPaymentModal(p.service, p.date, p.amount, p.status, p.details);
+        };
+
+        container.appendChild(card);
+    });
+}
+
+function openPaymentModal(service, date, amount, status, details) {
+    document.getElementById("paymentModal").style.display = "flex";
+
+    document.getElementById("modalTitle").textContent = service;
+
+    document.getElementById("modalDetails").innerHTML = `
+        <b>Date:</b> ${date}<br>
+        <b>Amount:</b> ${amount}<br>
+        <b>Status:</b> ${status}<br><br>
+        <b>Details:</b> ${details}
+    `;
+}
+
+function closePaymentModal() {
+    document.getElementById("paymentModal").style.display = "none";
+}
+
+renderPayments();
+</script>
+
+</body>
+</html>

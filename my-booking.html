@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bookings</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+/* ------------------------------------
+   GLOBAL PAGE STYLE
+------------------------------------ */
+body {
+    background: linear-gradient(135deg, #f2f2f2, #dfe3f8);
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 30px;
+}
+
+/* TITLE */
+.page-title {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 800;
+    color: #14173F;
+    margin-bottom: 5px;
+}
+
+.sub-text {
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* ------------------------------------
+   FILTER BUTTONS
+------------------------------------ */
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: #E7E7E7;
+    color: #14173F;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.filter-btn.active {
+    background: #14173F;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ------------------------------------
+   SEARCH BOX
+------------------------------------ */
+.search-box {
+    max-width: 500px;
+    margin: 0 auto 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 14px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+/* ------------------------------------
+   BOOKING CARD (MODERN)
+------------------------------------ */
+.booking-card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+    transition: 0.25s ease;
+    animation: fadeIn .5s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+}
+
+/* IMAGE */
+.booking-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+    background-color: #e5e5e5;
+    transition: 0.3s;
+}
+
+/* CONTENT */
+.booking-content {
+    padding: 22px;
+}
+
+.booking-content h3 {
+    margin: 0;
+    font-weight: 800;
+    color: #14173F;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* ICONS FOR DATA */
+.editable {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.editable strong {
+    color: #14173F;
+}
+
+/* STATUS BADGE */
+.booking-status {
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.confirmed { background: #D7F8D7; color: #1B7A1B; }
+.pending   { background: #FFF3CD; color: #856404; }
+.cancelled { background: #F8D7DA; color: #842029; }
+
+/* ACTION BUTTONS */
+.booking-actions {
+    margin-top: 15px;
+}
+
+.booking-actions button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.edit-btn   { background: #14173F; color: white; }
+.save-btn   { background: #10A037; color: white; display: none; }
+.cancel-btn { background: #DC3545; color: white; }
+
+/* HOVER EFFECT */
+.booking-actions button:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+/* APPEAR ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* ------------------------------------
+   MODAL POPUP
+------------------------------------ */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 360px;
+    border-radius: 20px;
+    text-align: center;
+    animation: pop .3s ease;
+}
+
+.modal-content h3 {
+    margin: 0;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.close-modal {
+    margin-top: 20px;
+    padding: 10px 22px;
+    background: #14173F;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="page-title">My Bookings</h2>
+<p class="sub-text">View, Manage, and Edit all your hotel reservations</p>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+    <button class="filter-btn" data-filter="pending">Pending</button>
+    <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+</div>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <i class="fa-solid fa-search" style="color:#666;"></i>
+    <input id="searchInput" type="text" placeholder="Search bookings...">
+</div>
+
+<!-- BOOKING LIST -->
+<div id="bookingContainer"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDetails"></p>
+        <button class="close-modal" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script>
+/* ------------------------------------
+   BOOKINGS DATA
+------------------------------------ */
+const bookings = [
+    {
+        id: 1,
+        type: "Double Room",
+        date1: "15 Dec 2025",
+        date2: "17 Dec 2025",
+        status: "confirmed",
+        img: "scr/img/double.jpg"
+    },
+    {
+        id: 2,
+        type: "Restaurant Reservation",
+        date1: "18 Dec 2025",
+        date2: "8:00 PM",
+        status: "confirmed",
+        img: "scr/img/Res.avif"
+    },
+    {
+        id: 3,
+        type: "Spa Massage",
+        date1: "19 Dec 2025",
+        date2: "3:00 PM",
+        status: "pending",
+        img: "scr/img/spa.jpg"
+    },
+    {
+        id: 4,
+        type: "Meeting Room",
+        date1: "25 Dec 2025",
+        date2: "2 hours",
+        status: "confirmed",
+        img: "scr/img/meeting.avif"
+    },
+    {
+        id: 5,
+        type: "Gym Session",
+        date1: "21 Dec 2025",
+        date2: "6:00 PM",
+        status: "pending",
+        img: "scr/img/GYM.avif"
+    }
+];
+
+/* ------------------------------------
+   RENDER BOOKINGS
+------------------------------------ */
+function renderBookings(list) {
+    const container = document.getElementById("bookingContainer");
+    container.innerHTML = "";
+
+    list.forEach(booking => {
+        const card = document.createElement("div");
+        card.className = "booking-card";
+
+        card.innerHTML = `
+            <img src="${booking.img}" 
+                 class="booking-img"
+                 loading="lazy"
+                 onerror="this.src='https://i.ibb.co/7Wym0rH/hotel-placeholder.jpg'">
+
+            <div class="booking-content">
+                <h3 onclick="openModal('${booking.type}','${booking.date1}','${booking.date2}','${booking.status}')">
+                    ${booking.type}
+                </h3>
+
+                <p class="editable"><strong>Date 1:</strong> <span>${booking.date1}</span></p>
+                <p class="editable"><strong>Date 2:</strong> <span>${booking.date2}</span></p>
+
+                <span class="booking-status ${booking.status}">
+                    ${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                </span>
+
+                <div class="booking-actions">
+                    <button class="edit-btn">Edit</button>
+                    <button class="save-btn">Save</button>
+                    <button class="cancel-btn">Cancel</button>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    activateCardFunctions();
+}
+
+renderBookings(bookings);
+
+/* ------------------------------------
+   EDITING / SAVING / CANCELING
+------------------------------------ */
+function activateCardFunctions() {
+    document.querySelectorAll(".booking-card").forEach(card => {
+        const editBtn = card.querySelector(".edit-btn");
+        const saveBtn = card.querySelector(".save-btn");
+        const cancelBtn = card.querySelector(".cancel-btn");
+
+        editBtn.onclick = () => {
+            card.querySelectorAll(".editable span").forEach(span => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = span.textContent;
+                input.style.padding = "7px";
+                input.style.width = "90%";
+                span.replaceWith(input);
+            });
+            editBtn.style.display = "none";
+            saveBtn.style.display = "inline-block";
+        };
+
+        saveBtn.onclick = () => {
+            card.querySelectorAll(".editable input").forEach(input => {
+                const span = document.createElement("span");
+                span.textContent = input.value;
+                input.replaceWith(span);
+            });
+            saveBtn.style.display = "none";
+            editBtn.style.display = "inline-block";
+        };
+
+        cancelBtn.onclick = () => {
+            if (confirm("Are you sure you want to cancel this booking?")) {
+                const status = card.querySelector(".booking-status");
+                status.textContent = "Cancelled";
+                status.className = "booking-status cancelled";
+            }
+        };
+    });
+}
+
+/* ------------------------------------
+   FILTER
+------------------------------------ */
+document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.onclick = () => {
+        document.querySelector(".filter-btn.active").classList.remove("active");
+        btn.classList.add("active");
+
+        const filter = btn.dataset.filter;
+
+        if (filter === "all") return renderBookings(bookings);
+
+        const filtered = bookings.filter(b => b.status === filter);
+        renderBookings(filtered);
+    };
+});
+
+/* ------------------------------------
+   SEARCH
+------------------------------------ */
+document.getElementById("searchInput").addEventListener("keyup", (e) => {
+    const text = e.target.value.toLowerCase();
+    const filtered = bookings.filter(b =>
+        b.type.toLowerCase().includes(text)
+    );
+    renderBookings(filtered);
+});
+
+/* ------------------------------------
+   MODAL
+------------------------------------ */
+function openModal(title, d1, d2, status) {
+    document.getElementById("modal").style.display = "flex";
+
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalDetails").innerHTML = `
+        <b>Date 1:</b> ${d1}<br>
+        <b>Date 2:</b> ${d2}<br>
+        <b>Status:</b> ${status}
+    `;
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>

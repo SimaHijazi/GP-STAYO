@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+body {
+    background: #F1F1F1;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 25px;
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    color: #14173F;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.sub-text {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* Main Card */
+.card {
+    background: rgba(255,255,255,0.85);
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    gap: 8px;
+    font-size: 32px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.star {
+    color: #c7c7c7;
+    transition: .2s ease;
+}
+.star:hover {
+    transform: scale(1.2);
+}
+.star.active {
+    color: #ffb400;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    height: 120px;
+    border-radius: 12px;
+    border: 2px solid #14173F;
+    padding: 12px;
+    outline: none;
+    font-size: 15px;
+    resize: none;
+}
+
+/* Button */
+.submit-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 14px;
+    background: #14173F;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.submit-btn:hover {
+    background: #0e123d;
+    transform: translateY(-2px);
+}
+
+/* Review Item */
+.review {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    animation: fadeIn .6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.review-img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #14173F;
+}
+
+.review-info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #14173F;
+    font-weight: 700;
+}
+.review-info p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+.review-stars {
+    color: #ffb400;
+    margin: 5px 0;
+    font-weight: 700;
+}
+.review-date {
+    font-size: 13px;
+    color: #777;
+}
+
+/* Rating Summary */
+.rating-summary {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avg-rating {
+    font-size: 50px;
+    font-weight: 700;
+    color: #14173F;
+}
+
+.rating-stars-large {
+    font-size: 26px;
+    color: #ffb400;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="page-title">Customer Reviews</h2>
+<p class="sub-text">See what guests are saying about our hotel</p>
+
+<!-- Rating Summary -->
+<div class="card rating-summary">
+    <div class="avg-rating" id="avgRating">5.0</div>
+    <div class="rating-stars-large">★★★★★</div>
+    <p id="reviewCount">1 Review</p>
+</div>
+
+<!-- Write Review Section -->
+<div class="card">
+    <h3 style="color:#14173F;margin-bottom:10px;">Write a Review</h3>
+
+    <div class="star-rating" id="stars">
+        <i class="fa-solid fa-star star" data-value="1"></i>
+        <i class="fa-solid fa-star star" data-value="2"></i>
+        <i class="fa-solid fa-star star" data-value="3"></i>
+        <i class="fa-solid fa-star star" data-value="4"></i>
+        <i class="fa-solid fa-star star" data-value="5"></i>
+    </div>
+
+    <textarea id="reviewText" placeholder="Write your experience..."></textarea>
+
+    <button class="submit-btn" id="submitReview">Submit Review</button>
+</div>
+
+<!-- REVIEWS LIST -->
+<div class="card" id="reviewsList">
+    <h3 style="color:#14173F;margin-bottom:15px;">All Reviews</h3>
+
+    <!-- Default Example -->
+    <div class="review">
+        <img src="scr/img/pexels-zura-modebadze-2828355-4567833.jpg" class="review-img">
+        <div class="review-info">
+            <h4>Malak Jabr</h4>
+            <div class="review-stars">★★★★★</div>
+            <p>Excellent service and friendly staff!</p>
+            <span class="review-date">12 Dec 2025</span>
+        </div>
+    </div>
+</div>
+
+<script>
+let selectedRating = 0;
+let reviewCount = 1;
+let totalStars = 5;
+
+// STAR SELECTION
+document.querySelectorAll(".star").forEach(star => {
+    star.addEventListener("click", function () {
+        selectedRating = parseInt(this.dataset.value);
+
+        document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
+        for (let i = 0; i < selectedRating; i++) {
+            document.querySelectorAll(".star")[i].classList.add("active");
+        }
+    });
+});
+
+// SUBMIT REVIEW
+document.getElementById("submitReview").onclick = () => {
+    const text = document.getElementById("reviewText").value.trim();
+
+    if (selectedRating === 0) {
+        alert("Please select a rating.");
+        return;
+    }
+    if (text.length < 3) {
+        alert("Please write a review.");
+        return;
+    }
+
+    const stars = "★".repeat(selectedRating);
+    const today = new Date().toLocaleDateString();
+
+    // Add review card
+    const reviewCard = `
+        <div class="review">
+            <img src="https://i.ibb.co/xDybxhL/profile.jpg" class="review-img">
+            <div class="review-info">
+                <h4>Malak Jabr</h4>
+                <div class="review-stars">${stars}</div>
+                <p>${text}</p>
+                <span class="review-date">${today}</span>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("reviewsList").innerHTML += reviewCard;
+
+    // Update rating summary
+    reviewCount++;
+    totalStars += selectedRating;
+    const avg = (totalStars / reviewCount).toFixed(1);
+
+    document.getElementById("avgRating").textContent = avg;
+    document.getElementById("reviewCount").textContent = `${reviewCount} Reviews`;
+
+    // Reset input
+    document.getElementById("reviewText").value = "";
+    selectedRating = 0;
+    document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
+};
+</script>
+
+</body>
+</html>

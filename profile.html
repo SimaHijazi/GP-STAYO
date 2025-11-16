@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+:root {
+    --navy: #14173f;
+    --light: #F1F1F1;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 25px;
+    background: var(--light);
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+
+/* CARD */
+.card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* PROFILE IMAGE */
+.profile-img-wrapper {
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--navy);
+    object-fit: cover;
+}
+
+.change-img-btn {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff8c00;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+/* NAME */
+.username {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.role {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.edit-btn { background: var(--navy); color: white; }
+.save-btn { 
+    background: transparent; 
+    border: 2px solid var(--navy); 
+    color: var(--navy); 
+    display: none; 
+}
+
+/* FLOATING LABELS */
+.floating-label {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.floating-label input {
+    width: 100%;
+    padding: 18px 14px 8px;
+    border-radius: 12px;
+    border: 2px solid var(--navy);
+    outline: none;
+    font-size: 16px;
+    background: white;
+}
+
+.floating-label label {
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    background: white;
+    padding: 0 6px;
+    font-size: 14px;
+    color: var(--navy);
+}
+
+/* LINKS */
+.link-item {
+    display: block;
+    padding: 12px 0;
+    font-size: 16px;
+    color: var(--navy);
+    text-decoration: none;
+}
+
+.logout-btn {
+    display: block;
+    text-align: center;
+    padding: 13px;
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: .7s;
+}
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- PROFILE HEADER -->
+    <div class="card reveal">
+        <div class="profile-img-wrapper">
+            <img id="profileImage" src="scr/img/pexels-zura-modebadze-2828355-4567833.jpg" class="profile-img">
+            <input type="file" id="imageUpload" hidden accept="image/*">
+            <button class="change-img-btn" id="changeImgBtn">
+                <i class="fa-solid fa-camera"></i>
+            </button>
+        </div>
+
+        <h2 class="username">Hello, Malak</h2>
+        <p class="role">Hotel Guest</p>
+
+        <div style="text-align:center;">
+            <button id="editBtn" class="btn edit-btn"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+            <button id="saveBtn" class="btn save-btn"><i class="fa-solid fa-save"></i> Save</button>
+        </div>
+    </div>
+
+
+
+    <!-- ACCOUNT INFORMATION -->
+    <div class="card reveal">
+        <h3 style="color:var(--navy); margin-bottom:20px;">Account Information</h3>
+
+        <div class="floating-label">
+            <input id="fullName" type="text" value="Malak Jabr" disabled>
+            <label>Full Name</label>
+        </div>
+
+        <div class="floating-label">
+            <input id="email" type="email" value="malak2027@gmail.com" disabled>
+            <label>Email</label>
+        </div>
+
+        <div class="floating-label">
+            <input id="phone" type="text" value="00962 777 777 061" disabled>
+            <label>Phone Number</label>
+        </div>
+
+        <div class="floating-label">
+            <input id="password" type="password" value="12345678" disabled>
+            <label>Password</label>
+        </div>
+    </div>
+
+
+    <!-- LINKS -->
+    <div class="card reveal">
+        <a href="my-bookings.html" class="link-item"><i class="fa-solid fa-calendar-check"></i> My Bookings</a>
+        <a href="my-payments.html" class="link-item"><i class="fa-solid fa-wallet"></i> My Payments</a>
+        <a href="help.html" class="link-item"><i class="fa-solid fa-circle-info"></i> Help Center</a>
+    </div>
+
+    <!-- LOGOUT -->
+    <div class="card reveal">
+        <a class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+
+</div>
+
+
+<script>
+// EDIT / SAVE BUTTONS
+const editBtn = document.getElementById("editBtn");
+const saveBtn = document.getElementById("saveBtn");
+const inputs = document.querySelectorAll("input");
+
+editBtn.onclick = () => {
+    inputs.forEach(i => i.disabled = false);
+    editBtn.style.display = "none";
+    saveBtn.style.display = "inline-block";
+};
+
+saveBtn.onclick = () => {
+    inputs.forEach(i => i.disabled = true);
+    saveBtn.style.display = "none";
+    editBtn.style.display = "inline-block";
+    alert("Profile updated successfully!");
+};
+
+// CHANGE PROFILE IMAGE
+const imageUpload = document.getElementById("imageUpload");
+const profileImage = document.getElementById("profileImage");
+
+document.getElementById("changeImgBtn").onclick = () => imageUpload.click();
+
+imageUpload.onchange = (e) => {
+    const file = e.target.files[0];
+    if (file) profileImage.src = URL.createObjectURL(file);
+};
+
+// REVEAL ANIMATION
+const revealItems = document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () => {
+    revealItems.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+            el.classList.add("show");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

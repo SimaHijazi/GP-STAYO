@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Card Payment</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    background: linear-gradient(135deg, #14173F, #283080);
+    font-family: "Poppins", sans-serif;
+    padding: 25px;
+    margin: 0;
+    color: white;
+}
+
+/* PAGE TITLE */
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+/* CARD CONTAINER */
+.payment-wrapper {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* CREDIT CARD PREVIEW */
+.credit-card {
+    width: 360px;
+    height: 220px;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    background: linear-gradient(135deg, #1C1F4A, #3C3F8D);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    color: white;
+    transition: transform .6s ease;
+    backface-visibility: hidden;
+}
+
+.credit-card.back {
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 3D CARD FLIP */
+.card-flip {
+    width: 360px;
+    height: 220px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .8s ease;
+}
+
+/* CHIP */
+.card-chip {
+    width: 55px;
+    margin-bottom: 15px;
+}
+
+/* CARD INFO */
+.card-number-preview {
+    font-size: 22px;
+    letter-spacing: 3px;
+    margin-top: 15px;
+}
+.label-small {
+    font-size: 11px;
+    opacity: .8;
+}
+
+/* BACK SIDE */
+.strip {
+    width: 100%;
+    height: 50px;
+    background: black;
+    margin-top: 15px;
+}
+
+.cvv-box {
+    background: white;
+    color: black;
+    padding: 8px;
+    width: 80px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* FORM SECTION */
+.form-box {
+    background: rgba(255,255,255,0.15);
+    padding: 25px;
+    border-radius: 18px;
+    backdrop-filter: blur(15px);
+    width: 450px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #F7F7F7;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+/* Pay Button */
+.pay-btn {
+    width: 100%;
+    padding: 15px;
+    background: #a0aad7;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 700;
+    transition: .2s;
+}
+.pay-btn:hover {
+    background: #00a77d;
+    transform: translateY(-2px);
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    width: 340px;
+    border-radius: 16px;
+    text-align: center;
+    animation: pop .3s ease;
+    color: black;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+    padding: 10px 20px;
+    background: #14173F;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="page-title">Secure Credit Card Payment</h2>
+
+<div class="payment-wrapper">
+
+    <!-- CARD PREVIEW -->
+    <div class="card-flip" id="flipCard">
+
+        <!-- FRONT -->
+        <div class="credit-card" id="cardFront">
+            <img class="card-chip" src="scr/img/cardimage.png">
+
+            <div class="card-number-preview" id="cardNumberPreview">**** **** **** ****</div>
+
+            <div style="margin-top:25px;">
+                <span class="label-small">CARDHOLDER NAME</span><br>
+                <span id="cardHolderPreview">FULL NAME</span>
+            </div>
+
+            <div style="margin-top:15px;">
+                <span class="label-small">EXPIRES</span><br>
+                <span id="cardExpiryPreview">MM/YY</span>
+            </div>
+        </div>
+
+        <!-- BACK -->
+        <div class="credit-card back">
+            <div class="strip"></div>
+            <div class="cvv-box" id="cvvPreview">***</div>
+        </div>
+
+    </div>
+
+    <!-- PAYMENT FORM -->
+    <div class="form-box">
+
+        <div class="input-group">
+            <label>Cardholder Name</label>
+            <input type="text" id="cardHolder" placeholder="Full Name">
+        </div>
+
+        <div class="input-group">
+            <label>Card Number</label>
+            <input type="text" id="cardNumber" maxlength="19" placeholder="0000 0000 0000 0000">
+        </div>
+
+        <div class="input-group">
+            <label>Expiry Date</label>
+            <input type="text" id="cardExpiry" maxlength="5" placeholder="MM/YY">
+        </div>
+
+        <div class="input-group">
+            <label>CVV</label>
+            <input type="password" id="cardCVV" maxlength="3" placeholder="***">
+        </div>
+
+        <button class="pay-btn" id="payNow">Confirm Payment</button>
+    </div>
+
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal" id="successModal">
+    <div class="modal-content">
+        <h3>Payment Successful!</h3>
+        <p>Your card has been charged successfully.</p>
+        <button class="close-modal" onclick="closeModal()">Done</button>
+    </div>
+</div>
+
+<script>
+// LIVE PREVIEW
+cardHolder.oninput = e =>
+    cardHolderPreview.textContent = e.target.value || "FULL NAME";
+
+cardNumber.oninput = e => {
+    let v = e.target.value.replace(/\D/g, "");
+    v = v.replace(/(.{4})/g, "$1 ").trim();
+    e.target.value = v;
+    cardNumberPreview.textContent = v || "**** **** **** ****";
+};
+
+cardExpiry.oninput = e => {
+    let v = e.target.value.replace(/\D/g, "").slice(0, 4);
+    if (v.length >= 3) v = v.slice(0, 2) + "/" + v.slice(2);
+    e.target.value = v;
+    cardExpiryPreview.textContent = v || "MM/YY";
+};
+
+cardCVV.oninput = e => {
+    cvvPreview.textContent = e.target.value || "***";
+};
+
+// FLIP CARD WHEN FOCUS ON CVV
+cardCVV.onfocus = () => {
+    document.getElementById("flipCard").style.transform = "rotateY(180deg)";
+};
+cardCVV.onblur = () => {
+    document.getElementById("flipCard").style.transform = "rotateY(0)";
+};
+
+// PAYMENT BUTTON
+payNow.onclick = () => {
+    if (!cardHolder.value || !cardNumber.value || !cardExpiry.value || !cardCVV.value) {
+        alert("Please complete all fields.");
+        return;
+    }
+    successModal.style.display = "flex";
+};
+
+function closeModal() {
+    successModal.style.display = "none";
+}
+</script>
+
+</body>
+</html>
