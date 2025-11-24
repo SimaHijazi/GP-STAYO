@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Details</title>
+    <link rel="stylesheet" href="/Room_Servises/order_food/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="dark-body">
+
+    <div class="app-screen meal-details-screen">
+        <header class="header">
+            <span class="material-icons back-arrow">arrow_back</span>
+            <h1 class="header-title">Meal Details</h1>
+        </header>
+
+        <main class="content-container">
+            <div class="meal-image-container">
+                <img src="/assets/meals/meal7.png" alt="Margherita Pizza">
+            </div>
+
+            <div class="meal-details-wrapper">
+
+                <h2 class="meal-name">Strawberry Mojito</h2>
+                <p class="meal-description">
+                    Cool strawberry and mint refresher with a tangy twist
+                </p>
+
+                <div class="info-row">
+                    <div class="info-block">
+                        <span class="info-label">Price:</span>
+                        <span class="info-value price-value">$6.00</span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Rating:</span>
+                        <span class="info-value rating-value">
+                            <span class="material-icons star-icon">star</span>
+                            4.6 / 5
+                        </span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Serves:</span>
+                        <span class="info-value">1 persons</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Ingredients:</h3>
+                <ul class="ingredients-list">
+                    <li>Fresh Strawberry</li>
+                    <li>Mint Leaves</li>
+                    <li>Lime Juice</li>
+                    <li>Soda Water</li>
+                    <li>Sugar</li>
+                </ul>
+
+                <h3 class="section-title">Nutrition Info:</h3>
+                <div class="nutrition-table">
+                    <div class="table-header">
+                        <span>Calories</span>
+                        <span>Protein</span>
+                        <span>Fat</span>
+                        <span>Carbs</span>
+                    </div>
+                    <div class="table-row data-row">
+                        <span>130 kcal</span>
+                        <span>1 g</span>
+                        <span>0 g</span>
+                        <span>28 g</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Special Requests:</h3>
+                <div class="special-requests">
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-mint">
+                        <label for="extra-mint">Extra Mint <span>$1.00</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="no-ice">
+                        <label for="no-ice">No Ice <span>Free</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="less-sugar">
+                        <label for="less-sugar">Less Sugar <span>Free</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-strawberry">
+                        <label for="extra-strawberry">Extra Strawberry <span>$1.00</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="sparkling-water">
+                        <label for="sparkling-water">Sparkling Water <span>$0.50</span></label>
+                    </div>
+                </div>
+
+                <div class="quantity-price-control">
+                    <span class="label">Quantity:</span>
+                    <div class="quantity-control">
+                        <span class="control-btn minus-btn">-</span>
+                        <span class="quantity-number">1</span>
+                        <span class="control-btn plus-btn">+</span>
+                    </div>
+
+                    <span class="total-label">Total Price:</span>
+                    <span class="total-value">$6.00</span>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="add-to-cart-button">Add to Cart</button>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Details</title>
+    <link rel="stylesheet" href="/Room_Servises/order_food/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="dark-body">
+
+    <div class="app-screen meal-details-screen">
+        <header class="header">
+            <span class="material-icons back-arrow">arrow_back</span>
+            <h1 class="header-title">Meal Details</h1>
+        </header>
+
+        <main class="content-container">
+            <div class="meal-image-container">
+                <img src="/assets/meals/meal4.png" alt="Margherita Pizza">
+            </div>
+
+            <div class="meal-details-wrapper">
+
+                <h2 class="meal-name">Steak</h2>
+                <p class="meal-description">
+                    Tender and juicy grilled steak, cooked to perfection for a rich flavor
+                </p>
+
+                <div class="info-row">
+                    <div class="info-block">
+                        <span class="info-label">Price:</span>
+                        <span class="info-value price-value">$25.00</span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Rating:</span>
+                        <span class="info-value rating-value">
+                            <span class="material-icons star-icon">star</span>
+                            4.8 / 5
+                        </span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Serves:</span>
+                        <span class="info-value">1 persons</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Ingredients:</h3>
+                <ul class="ingredients-list">
+                    <li>Beef Steak Cut</li>
+                    <li>Garlic</li>
+                    <li>Butter</li>
+                    <li>Olive Oil</li>
+                    <li>Herbs (rosemary / thyme)</li>
+                </ul>
+
+                <h3 class="section-title">Nutrition Info:</h3>
+                <div class="nutrition-table">
+                    <div class="table-header">
+                        <span>Calories</span>
+                        <span>Protein</span>
+                        <span>Fat</span>
+                        <span>Carbs</span>
+                    </div>
+                    <div class="table-row data-row">
+                        <span>700 kcal</span>
+                        <span>62 g</span>
+                        <span>48 g</span>
+                        <span>0 g</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Cooking Preference:</h3>
+                <div class="cooking-preference">
+                    <div class="preference-bar">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="preference-labels">
+                        <span>Raw</span>
+                        <span>Medium Rare</span>
+                        <span>Well done</span>
+                    </div>
+                </div>
+
+
+                <h3 class="section-title">Special Requests:</h3>
+                <div class="special-requests">
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="add-garlic-butter">
+                        <label for="add-garlic-butter">Add Garlic Butter <span>$1.50</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="add-pepper-sauce">
+                        <label for="add-pepper-sauce">Add Pepper Sauce <span>$2.00</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-herbs">
+                        <label for="extra-herbs">Extra Herbs <span>$0.50</span></label>
+                    </div>
+                </div>
+
+                <div class="quantity-price-control">
+                    <span class="label">Quantity:</span>
+                    <div class="quantity-control">
+                        <span class="control-btn minus-btn">-</span>
+                        <span class="quantity-number">1</span>
+                        <span class="control-btn plus-btn">+</span>
+                    </div>
+
+                    <span class="total-label">Total Price:</span>
+                    <span class="total-value">$25.00</span>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="add-to-cart-button">Add to Cart</button>
+        </footer>
+    </div>
+
+</body>
+
+</html>

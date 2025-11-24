@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent a Car</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <i>←</i>
+            <h2>Rent a Car</h2>
+        </div>
+
+        <img src="/assets/rent.png" alt="Car Rental">
+
+        <form>
+            <div>
+                <label>Pickup Location</label>
+                <input type="text" placeholder="Select Location">
+            </div>
+
+            <div>
+                <label>Pickup Date-Time</label>
+                <input type="datetime-local">
+            </div>
+
+            <div>
+                <label>Drop-off Date-Time</label>
+                <input type="datetime-local">
+            </div>
+
+            <div>
+                <label>Car Type</label>
+                <select>
+                    <option>Choose a type</option>
+                    <option>Sedan</option>
+                    <option>SUV</option>
+                    <option>Luxury</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Guests' Number</label>
+                <input type="number" placeholder="Enter number">
+            </div>
+
+            <div>
+                <label>Additional Notes</label>
+                <textarea placeholder="Enter any notes..."></textarea>
+            </div>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Details</title>
+    <link rel="stylesheet" href="/Room_Servises/order_food/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="dark-body">
+
+    <div class="app-screen meal-details-screen">
+        <header class="header">
+            <span class="material-icons back-arrow">arrow_back</span>
+            <h1 class="header-title">Meal Details</h1>
+        </header>
+
+        <main class="content-container">
+            <div class="meal-image-container">
+                <img src="/assets/meals/meal1.png" alt="Margherita Pizza">
+            </div>
+
+            <div class="meal-details-wrapper">
+
+                <h2 class="meal-name">Margherita Pizza</h2>
+                <p class="meal-description">
+                    Classic Italian pizza topped with tomato sauce, fresh mozzarella, and fragrant basil leaves
+                </p>
+
+                <div class="info-row">
+                    <div class="info-block">
+                        <span class="info-label">Price:</span>
+                        <span class="info-value price-value">$10.00</span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Rating:</span>
+                        <span class="info-value rating-value">
+                            <span class="material-icons star-icon">star</span>
+                            4.6 / 5
+                        </span>
+                    </div>
+                    <div class="info-block">
+                        <span class="info-label">Serves:</span>
+                        <span class="info-value">1-2 persons</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Ingredients:</h3>
+                <ul class="ingredients-list">
+                    <li>Pizza Dough</li>
+                    <li>Tomato Sauce</li>
+                    <li>Fresh Mozzarella</li>
+                    <li>Basil Leaves</li>
+                    <li>Olive Oil</li>
+                    <li>Parmesan Cheese</li>
+                </ul>
+
+                <h3 class="section-title">Nutrition Info:</h3>
+                <div class="nutrition-table">
+                    <div class="table-header">
+                        <span>Calories</span>
+                        <span>Protein</span>
+                        <span>Fat</span>
+                        <span>Carbs</span>
+                    </div>
+                    <div class="table-row data-row">
+                        <span>270 kcal</span>
+                        <span>12 g</span>
+                        <span>9 g</span>
+                        <span>33 g</span>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Special Requests:</h3>
+                <div class="special-requests">
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-cheese">
+                        <label for="extra-cheese">Extra cheese <span>$1.00</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="no-basil" checked>
+                        <label for="no-basil">No Basil <span>Free</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="gluten-free">
+                        <label for="gluten-free">Gluten-Free crust <span>$2.00</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-sauce">
+                        <label for="extra-sauce">Extra Sauce <span>$0.50</span></label>
+                    </div>
+
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="extra-spicy">
+                        <label for="extra-spicy">Extra Spicy <span>Free</span></label>
+                    </div>
+                </div>
+
+                <div class="quantity-price-control">
+                    <span class="label">Quantity:</span>
+                    <div class="quantity-control">
+                        <span class="control-btn minus-btn">-</span>
+                        <span class="quantity-number">1</span>
+                        <span class="control-btn plus-btn">+</span>
+                    </div>
+
+                    <span class="total-label">Total Price:</span>
+                    <span class="total-value">$10.00</span>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="add-to-cart-button">Add to Cart</button>
+        </footer>
+    </div>
+
+</body>
+
+</html>
